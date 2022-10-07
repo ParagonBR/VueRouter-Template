@@ -18,7 +18,7 @@ Vue.component("custom-navbar", navbar);
 // Routes
 Vue.use(VueRouter);
 
-const router = new VueRouter({ routes: Routes });
+const router = new VueRouter({ routes: Routes, mode: "history" });
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);

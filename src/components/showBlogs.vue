@@ -37,7 +37,7 @@
               <h5 class="card-title" v-rainbow>
                 {{ blog.title | capitalize_text }}
               </h5>
-              <p class="card-text" v-red>{{ blog.body | capitalize_text }}</p>
+              <p class="card-text">{{ blog.body | capitalize_text }}</p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
@@ -56,13 +56,7 @@ export default {
       loading_content: true,
     };
   },
-  directives: {
-    red: {
-      bind(el, _binding, _vnode) {
-        el.style.color = "red";
-      },
-    },
-  },
+
   methods: {
     async getBlogs() {
       let { data: blogs } = await this.$http.get(
