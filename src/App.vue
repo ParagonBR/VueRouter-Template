@@ -1,7 +1,7 @@
 <template>
   <div>
     <custom-navbar></custom-navbar>
-    <keep-alive>
+    <keep-alive include="showBlogs">
       <router-view></router-view>
     </keep-alive>
   </div>

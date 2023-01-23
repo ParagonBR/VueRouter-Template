@@ -4,6 +4,14 @@ import VueRouter from "vue-router";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import VueResource from "vue-resource";
 import navbar from "./components/header.vue";
+import Echo from "laravel-echo";
+import pusher from "pusher-js";
+import moment from "vue-moment";
+
+import VueSweetalert2 from "vue-sweetalert2";
+
+// If you don't need the styles, do not connect
+import "sweetalert2/dist/sweetalert2.min.css";
 
 import Routes from "./routes";
 
@@ -17,6 +25,14 @@ Vue.component("custom-navbar", navbar);
 
 // Routes
 Vue.use(VueRouter);
+
+//Moment
+
+Vue.use(moment);
+
+// Swal
+
+Vue.use(VueSweetalert2);
 
 const router = new VueRouter({ routes: Routes, mode: "history" });
 

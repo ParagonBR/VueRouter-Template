@@ -11,10 +11,14 @@
   "dependencies": {
     "bootstrap": "^5.2.0",
     "bootstrap-vue": "^2.22.0",
+    "laravel-echo": "^1.14.0",
+    "pusher-js": "^7.4.0",
     "vite-plugin-vue2": "^2.0.2",
     "vue": "2.7.8",
+    "vue-moment": "^4.1.0",
     "vue-resource": "^1.5.3",
     "vue-router": "3",
+    "vue-sweetalert2": "^5.0.5",
     "vue-template-compiler": "2.7.8"
   },
   "devDependencies": {

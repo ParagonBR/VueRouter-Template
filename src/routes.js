@@ -2,6 +2,8 @@ import showBlogs from "./components/showBlogs.vue";
 
 import addBlog from "./components/addBlog.vue";
 
+import blogDetails from "./components/blogDetails.vue";
+
 import home from "./components/home.vue";
 
 export default [
@@ -19,5 +21,10 @@ export default [
     path: "/blogs",
     name: "Blog List",
     component: showBlogs,
+  },
+  {
+    path: "/blog/:id",
+    name: "Blog",
+    component: blogDetails,
   },
 ];

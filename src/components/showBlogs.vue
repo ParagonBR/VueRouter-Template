@@ -38,7 +38,9 @@
                 {{ blog.title | capitalize_text }}
               </h5>
               <p class="card-text">{{ blog.body | capitalize_text }}</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <b-link :to="'/blog/' + blog.id" class="btn btn-primary"
+                >Ver Post</b-link
+              >
             </div>
           </div>
         </div>
@@ -59,11 +61,14 @@ export default {
 
   methods: {
     async getBlogs() {
-      let { data: blogs } = await this.$http.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-      blogs = blogs.slice(0, 12);
+      const url =
+        "https://vuejsblogs-99f52-default-rtdb.firebaseio.com/posts.json";
 
+      let { data: blogs } = await this.$http.get(url);
+
+      blogs = Object.keys(blogs).map((key) => {
+        return { ...blogs[key], id: key };
+      });
       let img = blogs.map(async (_blog) => {
         return await fetch(`https://picsum.photos/300/200?random=2`);
       });
@@ -87,7 +92,9 @@ export default {
     },
   },
   async beforeMount() {
+    this.$moment.locale("pt-br");
     await this.getBlogs();
+
     this.loading_content = false;
   },
 };

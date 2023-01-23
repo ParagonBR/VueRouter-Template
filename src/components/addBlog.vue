@@ -1,5 +1,8 @@
 <template>
   <div>
+    <!-- <b-modal v-model="modalShow" title="BootstrapVue">
+      <p class="my-4">Blog Adicionado com Sucesso</p>
+    </b-modal> -->
     <div class="row">
       <div class="blog my-3 col-md-6">
         <h2 class="text-center">Adicionar Post</h2>
@@ -126,6 +129,8 @@ export default {
       description: "",
       image: "",
       tipo: [],
+      modalShow: false,
+      boxTwo: false,
     };
   },
   methods: {
@@ -146,16 +151,61 @@ export default {
       };
     },
     async addBlog() {
-      let response = await this.$http.post(
-        "https://jsonplaceholder.typicode.com/posts",
-        {
-          title: this.title,
-          body: this.description,
-          image: this.image,
-          tipo: this.tipo,
+      try {
+        if (
+          this.title === "" ||
+          this.description === "" ||
+          this.image === "" ||
+          this.tipo.length === 0
+        ) {
+          this.showMsgBoxTwo(
+            "warning",
+            "Erro",
+            "Favor preencher todos os campos"
+          );
+          return;
         }
-      );
-      console.log(response);
+        let response = await this.$http.post(
+          "https://vuejsblogs-99f52-default-rtdb.firebaseio.com/posts.json",
+          {
+            title: this.title,
+            body: this.description,
+            image: this.image,
+            type: JSON.stringify(this.tipo),
+          }
+        );
+        this.modalShow = true;
+        this.showMsgBoxTwo("success", "Eucesso", "Blog Adicionado com Sucesso");
+        this.clearProps();
+      } catch (error) {
+        console.log(error);
+        this.showMsgBoxTwo("danger", "Erro", "Erro ao Adicionar Blog");
+      }
+    },
+    showMsgBoxTwo(type = "success", title = "sucesso", msg) {
+      this.boxTwo = "";
+      this.$bvModal
+        .msgBoxOk(msg, {
+          title: title,
+          size: "sm",
+          buttonSize: "sm",
+          okVariant: type,
+          headerClass: "p-2 border-bottom-0",
+          footerClass: "p-2 border-top-0",
+          centered: true,
+        })
+        .then((value) => {
+          this.boxTwo = value;
+        })
+        .catch((err) => {
+          // An error occurred
+        });
+    },
+    clearProps() {
+      this.title = "";
+      this.description = "";
+      this.image = "";
+      this.tipo = [];
     },
   },
 };
