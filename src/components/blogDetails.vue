@@ -42,9 +42,19 @@ export default {
 
       let { data: blog } = await this.$http.get(url);
 
-      let img = await fetch(`https://picsum.photos/500/300?random=2`);
+      if (blog == null) {
+        this.$router.push("/");
+        return;
+      }
+      if(blog.image == null){
+       let img = await fetch(`https://picsum.photos/500/300?random=2`);
+        blog = { ...blog, img: img.url };
+      }
+      else{
+        blog = { ...blog, img: blog.image };
+      }
 
-      blog = { ...blog, img: img.url };
+      
 
       this.blog = blog;
     },
